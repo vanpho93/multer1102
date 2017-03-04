@@ -2,7 +2,17 @@ let express = require('express');
 let app = express();
 
 let multer = require('multer'); //1
-let upload = multer({dest: './public'}); //2
+
+let storage = multer.diskStorage({
+    destination: function (req, file, cb){
+        cb(null, './public');
+    },
+    filename: function (req, file, cb){
+        cb(null, Date.now() + file.originalname);
+    }
+});
+
+let upload = multer({storage}); //2
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
