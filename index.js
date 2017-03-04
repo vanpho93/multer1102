@@ -8,7 +8,7 @@ let storage = multer.diskStorage({
         cb(null, './public');
     },
     filename: function (req, file, cb){
-        cb(null, Date.now() + file.originalname);
+        cb(null, req.body.username + Date.now() + file.originalname);
     }
 });
 
