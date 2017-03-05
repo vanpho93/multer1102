@@ -12,7 +12,7 @@ let storage = multer.diskStorage({
     }
 });
 
-let upload = multer({storage}); //2
+let upload = multer({storage}).single('avatar'); //1111
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -21,7 +21,9 @@ app.listen(3000, () => console.log('Server started'));
 
 app.get('/', (req, res) => res.render('home'));
 
-app.post('/signup', upload.single('avatar'), (req, res) => {//3
-    console.log(req.body);
-    res.send('Entered route');
+app.post('/signup', (req, res) => {//2222
+    upload(req, res, err => {
+        console.log(req.body);
+        res.send('Entered route');  
+    });
 });
