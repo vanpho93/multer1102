@@ -12,7 +12,19 @@ let storage = multer.diskStorage({
     }
 });
 
-let upload = multer({storage}).single('avatar'); //1111
+function fileFilter (req, file, cb) {
+    if(file.mimetype === 'image/png' 
+        || file.mimetype === 'image/jpg'){
+        return cb(null, true);
+    }
+    cb(new Error('Sai dinh dang file'));
+}
+
+let upload = multer({
+    storage, 
+    limits: {fileSize: 5 * 1024},
+    fileFilter
+}).single('avatar'); //1111
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -22,8 +34,8 @@ app.listen(3000, () => console.log('Server started'));
 app.get('/', (req, res) => res.render('home'));
 
 app.post('/signup', (req, res) => {//2222
-    upload(req, res, err => {
-        console.log(req.body);
+    upload(req, res, (err) => {
+        if(err) return res.send(err + '');
         res.send('Entered route');  
     });
 });
