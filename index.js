@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
             res.send(result.rows);
         });
     });
+    //function queryDB(sql, cb)
 });
 
 app.post('/signup', (req, res) => {//2222
