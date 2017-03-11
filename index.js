@@ -9,7 +9,10 @@ app.listen(3000, () => console.log('Server started'));
 let queryDB = require('./db.js');
 
 app.get('/', (req, res) => {
-    queryDB('SELECT * FROM "News"', result => res.send(result))
+    queryDB('SELECT * FROM "Newss"', (err, result) => {
+        if(err) return res.send(err);
+        res.send(result)
+    })
 });
 
 app.post('/signup', (req, res) => {//2222

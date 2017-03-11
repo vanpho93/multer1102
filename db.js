@@ -23,11 +23,11 @@ let pool = new pg.Pool(config);
 
 function queryDB(sql, cb) {
     pool.connect((err, client, done) => {
-        if(err) return console.log(err + '');
+        if(err) return cb(err + '');
         client.query(sql, (err, result) => {
             done(err);
-            if(err) return console.log(err + '');
-            cb(result.rows);
+            if(err) return cb(err + '');
+            cb(undefined, result.rows);
         });
     });
 }
