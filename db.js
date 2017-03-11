@@ -32,4 +32,5 @@ function queryDB(sql, cb) {
     });
 }
 
-queryDB('SELECT * FROM "News"', result => console.log(result));
+// queryDB('SELECT * FROM "News"', result => console.log(result));
+module.exports = queryDB;
